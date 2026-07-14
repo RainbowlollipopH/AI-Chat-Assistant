@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "web": {
+      "enable": true,
+      "search": {
+        "provider": "duckduckgo",
+        "apiKey": "",
+        "maxResults": 5,
+        "timeout": 30
+      },
+      "fetch": {
+        "useJinaReader": true,
+        "maxChars": 50000
+      }
+    },
+    "image": {
+      "enable": true,
+      "apiKey": "",
+      "baseUrl": "https://ai.vanscoding.com/v1",
+      "timeout": 120
+    },
+    "exec": {
+      "execDefaultTimeout": 120
+    }
+  }
+}
