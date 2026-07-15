@@ -1,3 +1,5 @@
+#此檔案為第二版
+
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 from peas_agent_tools import get_builtin_tools
