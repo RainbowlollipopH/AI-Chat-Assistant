@@ -97,10 +97,9 @@ def history_clean(message_history):
     old_history = message_history[:split]
     recent_history = message_history[split:]
     
-    #把舊歷史的工具訊息刪除
+    #把舊歷史的工具訊息刪除 
     cleaned_old = []
     for msg in old_history:
-        # 舊訊息 = user,assistant純對話
         if isinstance(msg, dict) and msg.get("role") in ["user", "assistant"]:
             cleaned_old.append(msg)
         elif hasattr(msg, "content") and msg.content and not getattr(msg, "tool_calls", None):
