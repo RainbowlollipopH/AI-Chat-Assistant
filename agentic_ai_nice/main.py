@@ -73,10 +73,12 @@ def build_system_prompt(question):
     return {"role":"system","content":system_content}, hint
 
 def history_clean(message_history):
+    #保留三個回合
     KEEP_TURNS = 3 
     
+    #找出切分點
     user_count = 0
-    split = 0
+    split = 0 
     for i in range(len(message_history) - 1, -1, -1):
         msg = message_history[i]
         if isinstance(msg, dict) and msg.get("role") == "user":
@@ -91,9 +93,11 @@ def history_clean(message_history):
             message_history = message_history[-30:]
         return message_history
 
+    #把歷史切成新的和舊的
     old_history = message_history[:split]
     recent_history = message_history[split:]
     
+    #把舊歷史的工具訊息刪除
     cleaned_old = []
     for msg in old_history:
         # 舊訊息 = user,assistant純對話
@@ -101,7 +105,8 @@ def history_clean(message_history):
             cleaned_old.append(msg)
         elif hasattr(msg, "content") and msg.content and not getattr(msg, "tool_calls", None):
             cleaned_old.append({"role": "assistant", "content": msg.content})
-            
+
+    #合併新和舊紀錄並限制總長度是30        
     message_history = cleaned_old + recent_history
     if len(message_history) > 30:
         message_history = message_history[-30:]
